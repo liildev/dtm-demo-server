@@ -4,17 +4,18 @@ import module from "./modules/index.js";
 import resultRouter from "./modules/results/router.js";
 import errorHandling from "./middlewares/error.handling.middleware.js";
 
+const app = express();
+
 const PORT = process.env.PORT || 5000;
-const server = express();
 
-server.use(express.json());
-server.use(express.urlencoded({ extended: true }));
-server.use(cors());
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-server.use("/api", module);
-server.use("/api", resultRouter);
+app.use("/api", module);
+app.use("/api", resultRouter);
 
 // Error processing
-server.use(errorHandling);
+app.use(errorHandling);
 
-server.listen(PORT, () => console.log(`*${PORT}`));
+app.listen(PORT, () => console.log(`*${PORT}`));
